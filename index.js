@@ -57,6 +57,7 @@ const promptUser = () => {
   return inquirer.prompt(questions)
 }
 
+// function that generates license link
 const generateLicenseLink = (license) => {
   switch (license) {
     case 'Mozilla':
@@ -91,6 +92,7 @@ const generateHTML = ({
   - [Usage](#usage)
   - [Contributing](#contributing)
   - [Tests](#tests)
+  - [License](#license)
   - [Questions](#questions)
 
 
@@ -130,6 +132,13 @@ const generateHTML = ({
 
   --------------
 
+  ## License
+
+
+  This application is covered under ${license}
+
+
+--------------
 
   ## Questions
   GitHub profile: https://github.com/${username}
@@ -143,14 +152,6 @@ function writeToFile(fileName, data) {
   console.log(data)
   fs.writeFileSync(fileName, generateHTML(data))
 }
-/*
-code generator
-code generator creates code
-npm install codegen
-you can use to create template
-download play and open pr
-npm run test
-*/
 
 // function that initialize the code.
 function init() {
