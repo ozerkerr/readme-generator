@@ -39,7 +39,17 @@ const questions = [
     message: "Please choose license you want to have.",
     name: 'license',
     choices: ['Mozilla', 'MIT', 'ISC', 'Apache', 'IBM']
-  }
+  },
+  {
+    type: 'input',
+    message: "Please enter GitHub username.",
+    name: 'username'
+  },
+  {
+    type: 'input',
+    message: "Please enter your email address.",
+    name: 'email'
+  },
 ];
 
 // Function that calls inquirer with questions
@@ -70,7 +80,9 @@ const generateHTML = ({
   usage,
   contributing,
   tests,
-  license
+  license,
+  username,
+  email
 }) =>
   `# ${title} ${license}
 
@@ -79,24 +91,51 @@ const generateHTML = ({
   - [Usage](#usage)
   - [Contributing](#contributing)
   - [Tests](#tests)
+  - [Questions](#questions)
 
 
   ## Description
     ${description}
+
+
   --------------
+
+
   ## Installation
     ${installation}
+
+
   --------------
+
+
   ## Usage
     ${usage}
+
+
   --------------
+
+  
   ## Contributing
+
+
     ${contributing}
+
+
   --------------
   ## Tests
-    ${tests}
-  `;
 
+
+    ${tests}
+
+
+  --------------
+
+
+  ## Questions
+  GitHub profile: https://github.com/${username}
+
+  If you have any additional questions, please feel free to email them at: ${email}
+  `;
 
 
 // Function that writes README file
@@ -106,22 +145,27 @@ function writeToFile(fileName, data) {
 }
 /*
 code generator
-code generator creates cod
+code generator creates code
 npm install codegen
 you can use to create template
 download play and open pr
 npm run test
 */
 
-// TODO: Create a function to initialize app
+// function that initialize the code.
 function init() {
+// call function that promts questions
   promptUser()
+  // then it is sent to other function that generates an license
     .then((answers) => {
       const generatedLink = generateLicenseLink(answers.license);
       answers.license = generatedLink;
+      // call write to file function
       writeToFile('generatedREADME.md', answers);
     })
+    // if successfull console log message
     .then(() => console.log('Successfully wrote to generatedREADME.md'))
+    // if error console log error 
     .catch((err) => console.error(err));
 }
 
